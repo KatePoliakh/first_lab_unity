@@ -5,7 +5,12 @@ namespace _Source.Core
     public class ObservableInt
     {
         private int _value;
-        public event Action<int> ValueChanged;
+        public Action<int> OnValueChanged ;
+        
+        public ObservableInt(int value = 0)
+        {
+            _value = value;
+        }
 
         public int Value
         {
@@ -15,9 +20,11 @@ namespace _Source.Core
                 if (_value != value)
                 {
                     _value = value;
-                    ValueChanged?.Invoke(_value);
+                    OnValueChanged?.Invoke(_value);
                 }
             }
         }
+
+        
     }
 }

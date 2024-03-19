@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Source.Core{
     public class ResourceBank : MonoBehaviour
     {
-        private Dictionary<GameResource, ObservableInt> resourceDictionary = new Dictionary<GameResource, ObservableInt>();
+        private Dictionary<GameResource, ObservableInt> ResourceDictionary { get; } =
+            new Dictionary<GameResource, ObservableInt>();
 
         private void Awake()
         {
@@ -16,18 +16,22 @@ namespace _Source.Core{
         {
             foreach (GameResource resource in System.Enum.GetValues(typeof(GameResource)))
             {
-                resourceDictionary.Add(resource, new ObservableInt());
+                ResourceDictionary.Add(resource, new ObservableInt());
             }
         }
 
         public void ChangeResource(GameResource resource, int value)
         {
-            resourceDictionary[resource].Value += value;
+            if (!ResourceDictionary.ContainsKey(resource))
+            {
+                ResourceDictionary[resource] = new ObservableInt();
+            }
+            ResourceDictionary[resource].Value += value;
         }
 
         public ObservableInt GetResource(GameResource resource)
         {
-            return resourceDictionary[resource];
+            return ResourceDictionary[resource];
         }
     }
 

@@ -1,25 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace _Source.Core{
+﻿namespace _Source.Core{
     
     using UnityEngine;
 
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private ResourceBank resourceBank;
+        public ResourceBank ResourceBank { get; private set; }
+        
 
         private void Awake()
         {
+            ResourceBank = new ResourceBank();
             InitializeStartingResources();
         }
 
         private void InitializeStartingResources()
         {
-            resourceBank.ChangeResource(GameResource.Humans, 10);
-            resourceBank.ChangeResource(GameResource.Food, 5);
-            resourceBank.ChangeResource(GameResource.Wood, 5);
+            
+            ResourceBank.ChangeResource(GameResource.Humans, 10);
+            ResourceBank.ChangeResource(GameResource.Food, 5);
+            ResourceBank.ChangeResource(GameResource.Wood, 5);
         }
     }
 
