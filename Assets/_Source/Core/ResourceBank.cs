@@ -5,7 +5,15 @@ namespace _Source.Core{
     public class ResourceBank : MonoBehaviour
     {
         private Dictionary<GameResource, ObservableInt> ResourceDictionary { get; } =
-            new Dictionary<GameResource, ObservableInt>();
+            new Dictionary<GameResource, ObservableInt>()
+            {
+                {GameResource.Humans, new ObservableInt(0)},
+                {GameResource.Food, new ObservableInt(0)},
+                {GameResource.Wood, new ObservableInt(0)},
+                {GameResource.Stone, new ObservableInt(0)},
+                {GameResource.Gold, new ObservableInt(0)}
+            };
+            
 
         private void Awake()
         {
@@ -16,16 +24,12 @@ namespace _Source.Core{
         {
             foreach (GameResource resource in System.Enum.GetValues(typeof(GameResource)))
             {
-                ResourceDictionary.Add(resource, new ObservableInt());
+                ResourceDictionary.Add(resource, new ObservableInt(0));
             }
         }
 
         public void ChangeResource(GameResource resource, int value)
         {
-            if (!ResourceDictionary.ContainsKey(resource))
-            {
-                ResourceDictionary[resource] = new ObservableInt();
-            }
             ResourceDictionary[resource].Value += value;
         }
 

@@ -7,7 +7,7 @@ namespace _Source.Core
         private int _value;
         public Action<int> OnValueChanged ;
         
-        public ObservableInt(int value = 0)
+        public ObservableInt(int value )
         {
             _value = value;
         }
@@ -19,8 +19,8 @@ namespace _Source.Core
             {
                 if (_value != value)
                 {
-                    _value = value;
                     OnValueChanged?.Invoke(_value);
+                    _value = value;
                 }
             }
         }

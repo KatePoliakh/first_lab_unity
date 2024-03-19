@@ -11,13 +11,14 @@ namespace _Source.Presentation{
         
         [SerializeField]
         private GameManager gameManager;
+        
 
         private void Start()
         {
             ResourceBank bank = gameManager.ResourceBank;
 
             bank.GetResource(gameResource).OnValueChanged = value =>
-                GetComponent<TMP_Text>().text = value.ToString();
+                GetComponent<TMP_Text>().text = $"{value}";
             
             bank.ChangeResource(gameResource, 0);
         }
