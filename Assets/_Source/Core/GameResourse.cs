@@ -1,12 +1,15 @@
-﻿
-
-namespace _Source.Core {
+﻿namespace _Source.Core {
     public enum GameResource
     {
         Humans,
         Food,
         Wood,
         Stone,
-        Gold
+        Gold,
+        HumansProdLvl,
+        FoodProdLvl,
+        WoodProdLvl,
+        StoneProdLvl,
+        GoldProdLvl
     }
 }

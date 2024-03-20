@@ -11,8 +11,8 @@ namespace _Source.Core
         public GameResource resourceType;
         [SerializeField]
         public GameObject gameManagerObj;
-
-        [SerializeField] public float productionTime;
+        [SerializeField] 
+        public float productionTime;
         public Button button;
         public Slider slider;
         private ResourceBank _resourceBank;
@@ -31,24 +31,23 @@ namespace _Source.Core
 
         public void StartProduction() {
             button.interactable = false;
-            slider.gameObject.SetActive(true);
+            slider.value = 0;
             StartCoroutine(ProduceResource());
         }
 
-        IEnumerator ProduceResource() {
-            productionTime *= 1- _resourceBank.GetResource(resourceType).Value / 100f;  
+        IEnumerator ProduceResource() { 
+            slider.gameObject.SetActive(true);
+            productionTime *= 1 - ((float)_resourceBank.GetResourceLevel(resourceType).Value) * 0.1f;
             float timer = 0f;
-            while (timer < productionTime) {
+            while (timer < productionTime)
+            {
                 timer += Time.deltaTime;
                 slider.value = timer / productionTime;
                 yield return null;
             }
+            _resourceBank.ChangeResource(resourceType, 1);
             button.interactable = true;
             slider.gameObject.SetActive(false);
-            ResourceBank resourceBank = _gameManager.ResourceBank;
-            if (resourceBank != null) {
-                resourceBank.ChangeResource(resourceType, 1);
-            }
         }
     }
 
